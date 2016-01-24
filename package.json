@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nad314/webmemes/issues"
   },
-  "homepage": "https://github.com/nad314/webmemes#readme"
+  "homepage": "https://github.com/nad314/webmemes#readme",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  }
 }
