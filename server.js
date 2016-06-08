@@ -6,15 +6,11 @@ app.get("/", function (req, res) {
     return res.sendFile(path.join(__dirname, "public/page/", "index.html"));
 });
 
-app.get("/poboljsani", function (req, res) {
-    return res.sendFile(path.join(__dirname, "public/page/", "poboljsani.html"));
+app.get("/player", function (req, res) {
+    return res.sendFile(path.join(__dirname, "public/page/", "player.html"));
 });
 
 
-
-
-
-
 app.listen(3000, function () {
- console.log('jozo bozo pro');
+ console.log('Listening to port 3000');
 });

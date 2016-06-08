@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="no-cache">
+    <style>
+        body {
+            background-color: #2d2d30;
+            margin:0;
+        }
+    </style>
+</head>
+
+<div id="player"></div>
+<script type="text/javascript">
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    var v_id;
+    function onYouTubeIframeAPIReady() {
+        window.external.OnAPILoaded();
+    }
+
+    function onPlayerReady(event) {
+        window.external.OnPlayerReady();
+        event.target.playVideo();
+    }
+
+
+    function onPlayerStateChange(event) {
+        if(event.data == YT.PlayerState.ENDED)
+            window.external.OnPlayerEnded();
+        else
+            window.external.OnStateChange(event.data);
+
+    }
+    function stopVideo() {
+        if(player!=null)
+            player.stopVideo();
+    }
+
+    function loadVideo(id) {
+        if (player != null)
+            player.loadVideoById(id);
+        else
+            player = new YT.Player('player', {
+                videoId: id,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+    }
+
+    function addZero(s){if(s.length==1)return '0'+s; else return s;}
+
+    function getTimeString(time) {
+        var minutes = '' + Math.floor(time/60);
+        var seconds = addZero('' + Math.floor(time)%60);
+        return minutes + ':' + seconds;
+    }
+
+    function getVideoTime(){
+        window.external.OnVideoTime('' +
+                getTimeString(player.getCurrentTime()) +
+                ' / ' +
+                getTimeString(player.getDuration()));
+    }
+</script>
+</body>
+</html>
